@@ -65,16 +65,18 @@ namespace projectx {
         }
 
         private void listbox1_SelectionChanged(object sender, SelectionChangedEventArgs e) {
-            sensorInfo.Text = sensors[listbox1.SelectedIndex].Id;
+            try {
+                sensorInfo.Text = sensors[listbox1.SelectedIndex].Id;
+            }
+            catch { }
         }
 
         private void batteryChanged_Click(object sender, RoutedEventArgs e) {
-            int selected = 1;
+            int selected = listbox1.SelectedIndex;
             _controller.UpdateBatteryStatusOnSensorFromSensorID(sensors[listbox1.SelectedIndex].Id);
             listbox1.Items.Clear();
             updateSensors();
-            listbox1.SelectedIndex = 0;
-            
+            listbox1.SelectedIndex = selected;
         }
 
 
