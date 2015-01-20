@@ -3,17 +3,9 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         Title="MainWindow" Height="350" Width="525">
     <Grid>
-        <TextBox Name="textbox1" HorizontalAlignment="Left" Height="23" TextWrapping="Wrap" Text="CPR" VerticalAlignment="Top" Width="120" Margin="10,41,0,0"/>
-        <TextBox Name="textbox2" HorizontalAlignment="Left" Height="23" TextWrapping="Wrap" Text="NAME" VerticalAlignment="Top" Width="120" Margin="10,69,0,0"/>
-        <Button Name="SetPerson" Content="Add Person" HorizontalAlignment="Left" VerticalAlignment="Top" Width="75" Margin="10,97,0,0" Click="SetPerson_Click"/>
-        <Label Content="Add Person" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="10,10,0,0"/>
-        <Label Content="Add Sensor" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="164,10,0,0"/>
-        <TextBox Name="textbox3" HorizontalAlignment="Left" Height="23" TextWrapping="Wrap" Text="Model" VerticalAlignment="Top" Width="120" Margin="164,41,0,0"/>
-        <TextBox Name="textbox4" HorizontalAlignment="Left" Height="23" TextWrapping="Wrap" Text="CPR" VerticalAlignment="Top" Width="120" Margin="164,69,0,0"/>
-        <TextBox Name="textbox5" HorizontalAlignment="Left" Height="23" TextWrapping="Wrap" Text="ID" VerticalAlignment="Top" Width="120" Margin="164,97,0,0"/>
-        <TextBox Name="textbox6" HorizontalAlignment="Left" Height="23" TextWrapping="Wrap" Text="Battery" VerticalAlignment="Top" Width="120" Margin="164,125,0,0"/>
-        <Button Name="SetSensor" Content="Button" HorizontalAlignment="Left" VerticalAlignment="Top" Width="75" Margin="164,152,0,0" Click="SetSensor_Click"/>
-        <ListBox Name="listbox1" HorizontalAlignment="Left" Height="227" VerticalAlignment="Top" Width="155" Margin="311,41,0,0" Loaded="loaded"/>
+        <ListBox Name="listbox1" HorizontalAlignment="Left" Height="303" VerticalAlignment="Top" Width="264" Margin="246,10,0,0" Loaded="loaded"/>
+        <Button Name="personWindow" Content="Tilføj Person" HorizontalAlignment="Left" VerticalAlignment="Top" Width="75" Margin="10,10,0,0" Click="personWindow_Click"/>
+        <Button Name="sensorWindow" Content="Tilføj Sensor" HorizontalAlignment="Left" VerticalAlignment="Top" Width="75" Margin="10,37,0,0" Click="sensorWindow_Click"/>
 
     </Grid>
 </Window>

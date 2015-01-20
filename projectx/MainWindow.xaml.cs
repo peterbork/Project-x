@@ -25,20 +25,35 @@ namespace projectx {
             InitializeComponent();
         }
 
-        private void SetPerson_Click(object sender, RoutedEventArgs e) {
-            _controller.RegisterNewPerson(textbox1.Text, textbox2.Text);
-        }
-        private void SetSensor_Click(object sender, RoutedEventArgs e) {
-            _controller.RegisterNewSensor(textbox3.Text, textbox4.Text, textbox5.Text, Convert.ToDateTime(textbox6.Text));
-        }
 
 
         private void loaded(object sender, RoutedEventArgs e) {
             sensors = _controller.GetSensors();
             foreach (Sensor s in sensors) {
-                listbox1.Items.Add(s.Id + ": " + s.BatteryLastChanged);
+                DateTime today = DateTime.Today;
+                var diff = today - s.BatteryLastChanged;
+                double daysdiff = diff.Days;
+                if (daysdiff > 240) {
+                    listbox1.Items.Add("Outdated: " + s.Id + ": " + s.BatteryLastChanged);
+                }
+                else {
+                    listbox1.Items.Add(s.Id + ": " + s.BatteryLastChanged);
+                }
             }
         }
+
+        private void personWindow_Click(object sender, RoutedEventArgs e) {
+            RegisterPerson window = new RegisterPerson();
+            window.Show();
+        }
+
+        private void sensorWindow_Click(object sender, RoutedEventArgs e) {
+            RegisterSensor window = new RegisterSensor();
+            window.Show();
+        }
+
+
+
 
         
     }
