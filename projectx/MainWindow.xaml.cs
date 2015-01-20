@@ -35,7 +35,21 @@ namespace projectx {
                     listbox1.Items.Add("Outdated: " + s.Id + ": " + s.BatteryLastChanged);
                 }
                 else {
-                    listbox1.Items.Add(s.Id + ": " + s.BatteryLastChanged);
+                    listbox1.Items.Add(s.Id + " - " + s.BatteryLastChanged);
+                }
+            }
+        }
+        public void updateSensors() {
+            sensors = _controller.GetSensors();
+            foreach (Sensor s in sensors) {
+                DateTime today = DateTime.Today;
+                var diff = today - s.BatteryLastChanged;
+                double daysdiff = diff.Days;
+                if (daysdiff > 240) {
+                    listbox1.Items.Add("Outdated: " + s.Id + ": " + s.BatteryLastChanged);
+                }
+                else {
+                    listbox1.Items.Add(s.Id + " - " + s.BatteryLastChanged);
                 }
             }
         }
@@ -48,6 +62,19 @@ namespace projectx {
         private void sensorWindow_Click(object sender, RoutedEventArgs e) {
             RegisterSensor window = new RegisterSensor();
             window.Show();
+        }
+
+        private void listbox1_SelectionChanged(object sender, SelectionChangedEventArgs e) {
+            sensorInfo.Text = sensors[listbox1.SelectedIndex].Id;
+        }
+
+        private void batteryChanged_Click(object sender, RoutedEventArgs e) {
+            int selected = 1;
+            _controller.UpdateBatteryStatusOnSensorFromSensorID(sensors[listbox1.SelectedIndex].Id);
+            listbox1.Items.Clear();
+            updateSensors();
+            listbox1.SelectedIndex = 0;
+            
         }
 
 

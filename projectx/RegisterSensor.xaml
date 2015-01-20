@@ -4,11 +4,11 @@
         Title="RegisterSensor" Height="359.076" Width="300">
     <Grid>
         <Label Content="Tilføj Sensor" HorizontalAlignment="Center" VerticalAlignment="Top" Margin="0,10,0,0" FontSize="24" Width="139"/>
-        <TextBox x:Name="textbox3" HorizontalAlignment="Center" Height="23" TextWrapping="Wrap" VerticalAlignment="Top" Width="120" Margin="88,83,87.037,0"/>
-        <TextBox x:Name="textbox4" HorizontalAlignment="Center" Height="23" TextWrapping="Wrap" VerticalAlignment="Top" Width="120" Margin="88,137,87.037,0"/>
-        <TextBox x:Name="textbox5" HorizontalAlignment="Center" Height="23" TextWrapping="Wrap" VerticalAlignment="Top" Width="120" Margin="88,191,87.037,0"/>
-        <TextBox x:Name="textbox6" HorizontalAlignment="Center" Height="23" TextWrapping="Wrap" VerticalAlignment="Top" Width="120" Margin="88,245,87.037,0"/>
-        <Button x:Name="SetSensor" Content="Tilføj Sensor" HorizontalAlignment="Center" VerticalAlignment="Top" Width="83" Margin="106,286,106.037,0" Click="SetSensor_Click"/>
+        <TextBox x:Name="textbox3" HorizontalAlignment="Center" Height="23" TextWrapping="Wrap" VerticalAlignment="Top" Width="120" Margin="0,83,0,0"/>
+        <TextBox x:Name="textbox4" HorizontalAlignment="Center" Height="23" TextWrapping="Wrap" VerticalAlignment="Top" Width="120" Margin="0,137,0,0"/>
+        <TextBox x:Name="textbox5" HorizontalAlignment="Center" Height="23" TextWrapping="Wrap" VerticalAlignment="Top" Width="120" Margin="0,191,0,0"/>
+        <TextBox x:Name="textbox6" HorizontalAlignment="Center" Height="23" TextWrapping="Wrap" VerticalAlignment="Top" Width="120" Margin="0,245,0,0"/>
+        <Button x:Name="SetSensor" Content="Tilføj Sensor" HorizontalAlignment="Center" VerticalAlignment="Top" Width="83" Margin="0,286,0,0" Click="SetSensor_Click"/>
         <Label Content="Model" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="88,57,0,0"/>
         <Label Content="Cpr-nummer" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="88,111,0,0"/>
         <Label Content="ID" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="88,165,0,0"/>
