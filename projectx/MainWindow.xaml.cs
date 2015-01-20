@@ -25,8 +25,6 @@ namespace projectx {
             InitializeComponent();
         }
 
-
-
         private void loaded(object sender, RoutedEventArgs e) {
             sensors = _controller.GetSensors();
             foreach (Sensor s in sensors) {
