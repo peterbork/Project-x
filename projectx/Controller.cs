@@ -85,7 +85,35 @@ namespace projectx {
                 conn.Dispose();
             }
             return sensors;
-        }   
+        }
+        public Sensor GetSensorFromCPRNR(string cprnr) {
+            SqlConnection conn = new SqlConnection(DBConnectionString.Conn);
+            Sensor s = new Sensor();
+
+            try {
+                conn.Open();
+
+                SqlCommand cmd = new SqlCommand("GetSensorFromCPRNR", conn);
+
+                cmd.CommandType = CommandType.StoredProcedure;
+                SqlParameter parameter = new SqlParameter();
+                cmd.Parameters.Add(new SqlParameter("@CPRNR", cprnr));
+                SqlDataReader reader = cmd.ExecuteReader();
+
+                while (reader.Read()) {
+                    s = new Sensor(reader["S_Model"].ToString(), reader["S_P_CPRNR"].ToString(), reader["S_SensorID"].ToString(), Convert.ToDateTime(reader["S_BatteryLastChanged"].ToString()));
+                }
+                reader.Close();
+            }
+            catch (SqlException e) {
+                System.Windows.MessageBox.Show(e.Message);
+            }
+            finally {
+                conn.Close();
+                conn.Dispose();
+            }
+            return s;
+        }
         public void UpdateBatteryStatusOnSensorFromSensorID(string id){
             SqlConnection conn = new SqlConnection(DBConnectionString.Conn);
 
@@ -105,7 +133,8 @@ namespace projectx {
                 conn.Dispose();
             }
         }
-        public void GetIntervalLocationFromSensorID(string sensorId, DateTime startDate, DateTime endDate) {
+        public List<Location> GetIntervalLocationFromSensorID(string sensorId, DateTime startDate, DateTime endDate) {
+            List<Location> locations = new List<Location>();
             SqlConnection conn = new SqlConnection(DBConnectionString.Conn);
 
             try {
@@ -121,7 +150,7 @@ namespace projectx {
                 SqlDataReader reader = cmd.ExecuteReader();
 
                 while (reader.Read()) {
-                    
+                    locations.Add(new Location(reader["L_S_SensorID"].ToString(), reader["L_Latitude"].ToString(), reader["L_Longitude"].ToString(), Convert.ToDateTime(reader["L_DateTime"].ToString())));
                 }
                 reader.Close();
             }
@@ -132,6 +161,7 @@ namespace projectx {
                 conn.Close();
                 conn.Dispose();
             }
+            return locations;
         }
         public Location GetNewestLocationFromSensorID(string sensorId) {
             SqlConnection conn = new SqlConnection(DBConnectionString.Conn);
