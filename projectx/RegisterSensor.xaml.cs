@@ -24,7 +24,7 @@ namespace projectx {
         }
 
         private void SetSensor_Click(object sender, RoutedEventArgs e) {
-            _controller.RegisterNewSensor(textbox3.Text, textbox4.Text, textbox5.Text, Convert.ToDateTime(textbox6.Text));
+            _controller.RegisterNewSensor(textbox3.Text, PersonList.Text, textbox5.Text, Convert.ToDateTime(textbox6.Text));
         }
     }
 }
