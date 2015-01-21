@@ -222,5 +222,36 @@ namespace projectx {
             }
             return p;
         }
+
+        public List<String> GetNames(){
+            SqlConnection conn = new SqlConnection(DBConnectionString.Conn);
+            List<String> names = new List<String>();
+
+            try
+            {
+                conn.Open();
+
+                SqlCommand cmd = new SqlCommand("Select P_Name FROM [EJL15_DB].[dbo].[P_Person]", conn);
+
+                SqlDataReader reader = cmd.ExecuteReader();
+
+                while (reader.Read())
+                {
+                    names.Add(reader["P_Name"].ToString());
+                }
+                reader.Close();
+
+            }
+            catch (SqlException e)
+            {
+                System.Windows.MessageBox.Show(e.Message);
+            }
+            finally
+            {
+                conn.Close();
+                conn.Dispose();
+            }
+            return names;
+        }
     }
 }
