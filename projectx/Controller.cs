@@ -73,7 +73,7 @@ namespace projectx {
                 SqlDataReader reader = cmd.ExecuteReader();
                 
                 while (reader.Read()) {
-                    sensors.Add(new Sensor(reader["S_SensorID"].ToString(), reader["S_P_CPRNR"].ToString(), reader["S_Model"].ToString(), Convert.ToDateTime(reader["S_BatteryLastChanged"].ToString())));
+                    sensors.Add(new Sensor(reader["S_Model"].ToString(), reader["S_P_CPRNR"].ToString(), reader["S_SensorID"].ToString(), Convert.ToDateTime(reader["S_BatteryLastChanged"].ToString())));
                 }
                 reader.Close();
             }
@@ -85,6 +85,112 @@ namespace projectx {
                 conn.Dispose();
             }
             return sensors;
-        }        
+        }   
+        public void UpdateBatteryStatusOnSensorFromSensorID(string id){
+            SqlConnection conn = new SqlConnection(DBConnectionString.Conn);
+
+            try {
+                conn.Open();
+                SqlCommand cmd = new SqlCommand("UpdateBatteryStatusOnSensorFromSensorID", conn);
+                cmd.CommandType = CommandType.StoredProcedure;
+                SqlParameter parameter = new SqlParameter();
+                cmd.Parameters.Add(new SqlParameter("@SensorID", id));
+                cmd.ExecuteScalar();
+            }
+            catch (Exception e) {
+                System.Windows.MessageBox.Show(e.Message);
+            }
+            finally {
+                conn.Close();
+                conn.Dispose();
+            }
+        }
+        public void GetIntervalLocationFromSensorID(string sensorId, DateTime startDate, DateTime endDate) {
+            SqlConnection conn = new SqlConnection(DBConnectionString.Conn);
+
+            try {
+                conn.Open();
+
+                SqlCommand cmd = new SqlCommand("GetIntervalLocationFromSensorID", conn);
+
+                cmd.CommandType = CommandType.StoredProcedure;
+                SqlParameter parameter = new SqlParameter();
+                cmd.Parameters.Add(new SqlParameter("@SensorID", sensorId));
+                cmd.Parameters.Add(new SqlParameter("@FromDateTime", startDate));
+                cmd.Parameters.Add(new SqlParameter("@ToDateTime", endDate));
+                SqlDataReader reader = cmd.ExecuteReader();
+
+                while (reader.Read()) {
+                    
+                }
+                reader.Close();
+            }
+            catch (SqlException e) {
+                System.Windows.MessageBox.Show(e.Message);
+            }
+            finally {
+                conn.Close();
+                conn.Dispose();
+            }
+        }
+        public Location GetNewestLocationFromSensorID(string sensorId) {
+            SqlConnection conn = new SqlConnection(DBConnectionString.Conn);
+            Location _l = new Location();
+
+            try {
+                conn.Open();
+
+                SqlCommand cmd = new SqlCommand("GetNewestLocationFromSensorID", conn);
+
+                cmd.CommandType = CommandType.StoredProcedure;
+                SqlParameter parameter = new SqlParameter();
+                cmd.Parameters.Add(new SqlParameter("@SensorID", sensorId));
+                cmd.Parameters.Add(new SqlParameter("@Count", 1));
+                SqlDataReader reader = cmd.ExecuteReader();
+
+                while (reader.Read()) {
+                    _l = new Location(reader["L_S_SensorID"].ToString(), reader["L_Latitude"].ToString(), reader["L_Longitude"].ToString(), Convert.ToDateTime(reader["L_DateTime"].ToString()));
+                }
+                reader.Close();
+
+            }
+            catch (SqlException e) {
+                System.Windows.MessageBox.Show(e.Message);
+            }
+            finally {
+                conn.Close();
+                conn.Dispose();
+            }
+            return _l;
+        }
+        public Person getName(string cprnr) {
+            SqlConnection conn = new SqlConnection(DBConnectionString.Conn);
+            Person p = new Person(" ", " ");
+
+            try {
+                conn.Open();
+
+                SqlCommand cmd = new SqlCommand("GetPersonFromCPRNR", conn);
+
+                cmd.CommandType = CommandType.StoredProcedure;
+                SqlParameter parameter = new SqlParameter();
+                cmd.Parameters.Add(new SqlParameter("@CPRNR", cprnr));
+                SqlDataReader reader = cmd.ExecuteReader();
+
+                while (reader.Read()) {
+                   p = new Person(reader["P_CPRNR"].ToString(), reader["P_Name"].ToString());
+                }
+                reader.Close();
+
+            }
+            catch (SqlException e) {
+                System.Windows.MessageBox.Show(e.Message);
+            }
+            finally {
+                conn.Close();
+                conn.Dispose();
+            }
+            return p;
+        }
     }
 }

@@ -26,18 +26,7 @@ namespace projectx {
         }
 
         private void loaded(object sender, RoutedEventArgs e) {
-            sensors = _controller.GetSensors();
-            foreach (Sensor s in sensors) {
-                DateTime today = DateTime.Today;
-                var diff = today - s.BatteryLastChanged;
-                double daysdiff = diff.Days;
-                if (daysdiff > 240) {
-                    listbox1.Items.Add("Outdated: " + s.Id + ": " + s.BatteryLastChanged);
-                }
-                else {
-                    listbox1.Items.Add(s.Id + " - " + s.BatteryLastChanged);
-                }
-            }
+            updateSensors();
         }
         public void updateSensors() {
             sensors = _controller.GetSensors();
@@ -46,10 +35,10 @@ namespace projectx {
                 var diff = today - s.BatteryLastChanged;
                 double daysdiff = diff.Days;
                 if (daysdiff > 240) {
-                    listbox1.Items.Add("Outdated: " + s.Id + ": " + s.BatteryLastChanged);
+                    listbox1.Items.Add("*Outdated: " + _controller.getName(s.CprNr).Name + " - " + daysdiff + " Dage");
                 }
                 else {
-                    listbox1.Items.Add(s.Id + " - " + s.BatteryLastChanged);
+                    listbox1.Items.Add(_controller.getName(s.CprNr).Name + " - " + daysdiff + " Dage");
                 }
             }
         }
@@ -66,9 +55,18 @@ namespace projectx {
 
         private void listbox1_SelectionChanged(object sender, SelectionChangedEventArgs e) {
             try {
-                sensorInfo.Text = sensors[listbox1.SelectedIndex].Id;
+                sensorInfo.Text = _controller.getName(sensors[listbox1.SelectedIndex].CprNr).Name + "\n";
+                sensorInfo.Text += sensors[listbox1.SelectedIndex].CprNr + "\n";
+                sensorInfo.Text += _controller.GetNewestLocationFromSensorID(sensors[listbox1.SelectedIndex].Id).Latitude + "\n";
+                sensorInfo.Text += _controller.GetNewestLocationFromSensorID(sensors[listbox1.SelectedIndex].Id).Longitude + "\n";
+                sensorInfo.Text += _controller.GetNewestLocationFromSensorID(sensors[listbox1.SelectedIndex].Id).DateTime + "\n";
+                sensorInfo.Text += sensors[listbox1.SelectedIndex].Id + "\n";
+                sensorInfo.Text += sensors[listbox1.SelectedIndex].Model + "\n";
+                sensorInfo.Text += sensors[listbox1.SelectedIndex].BatteryLastChanged;
             }
-            catch { }
+            catch {
+            
+            }
         }
 
         private void batteryChanged_Click(object sender, RoutedEventArgs e) {
@@ -77,6 +75,11 @@ namespace projectx {
             listbox1.Items.Clear();
             updateSensors();
             listbox1.SelectedIndex = selected;
+        }
+
+        private void locationInPeriod_Click(object sender, RoutedEventArgs e) {
+            LocationInPeriod window = new LocationInPeriod();
+            window.Show();
         }
 
 

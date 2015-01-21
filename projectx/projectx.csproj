@@ -54,6 +54,10 @@
       <SubType>Designer</SubType>
     </ApplicationDefinition>
     <Compile Include="Helper.cs" />
+    <Compile Include="Location.cs" />
+    <Compile Include="LocationInPeriod.xaml.cs">
+      <DependentUpon>LocationInPeriod.xaml</DependentUpon>
+    </Compile>
     <Compile Include="RegisterPerson.xaml.cs">
       <DependentUpon>RegisterPerson.xaml</DependentUpon>
     </Compile>
@@ -61,6 +65,10 @@
       <DependentUpon>RegisterSensor.xaml</DependentUpon>
     </Compile>
     <Compile Include="Sensor.cs" />
+    <Page Include="LocationInPeriod.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="MainWindow.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
