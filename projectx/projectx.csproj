@@ -68,6 +68,7 @@
       <DependentUpon>RegisterSensor.xaml</DependentUpon>
     </Compile>
     <Compile Include="Sensor.cs" />
+    <Compile Include="Temperatur.cs" />
     <Page Include="LocationInPeriod.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>

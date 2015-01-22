@@ -36,16 +36,26 @@ namespace projectx {
         }
         public void updateSensors() {
             sensors = _controller.GetSensors();
+            DateTime today = DateTime.Today;
             foreach (Sensor s in sensors) {
-                DateTime today = DateTime.Today;
+
+                int SensorValue = _controller.GetNewestTemperatureFromSensorID(s.Id).SensorValueInOhm;
                 var diff = today - s.BatteryLastChanged;
                 double daysdiff = diff.Days;
+                listbox1.Items.Add(_controller.getName(s.CprNr).Name + " - " + daysdiff + " Dage");
+
+                string SensorInfo = "";
                 if (daysdiff > 240) {
-                    listbox1.Items.Add("*Outdated: " + _controller.getName(s.CprNr).Name + " - " + daysdiff + " Dage");
+                    SensorInfo += "[battery] ";
+ 
+                    //listbox1.Items.Add("*Outdated: " + _controller.getName(s.CprNr).Name + " - " + daysdiff + " Dage");
                 }
-                else {
-                    listbox1.Items.Add(_controller.getName(s.CprNr).Name + " - " + daysdiff + " Dage");
-                }
+
+                if (SensorValue < 800 || SensorValue > 20000)
+                {
+                    SensorInfo += "[Temperatur] ";
+                }                  
+                
             }
         }
 

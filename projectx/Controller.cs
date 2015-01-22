@@ -253,8 +253,36 @@ namespace projectx {
             }
             return names;
         }
-        GetNewestTemperatureFromSensorID(){
-         //go tina
+
+        public Temperatur GetNewestTemperatureFromSensorID(string sensorId){
+              SqlConnection conn = new SqlConnection(DBConnectionString.Conn);
+            Temperatur _t = new Temperatur();
+
+            try {
+                conn.Open();
+
+                SqlCommand cmd = new SqlCommand("GetNewestTemperatureFromSensorID", conn);
+
+                cmd.CommandType = CommandType.StoredProcedure;
+                SqlParameter parameter = new SqlParameter();
+                cmd.Parameters.Add(new SqlParameter("@SensorID", sensorId));
+                cmd.Parameters.Add(new SqlParameter("@Count", 1));
+                SqlDataReader reader = cmd.ExecuteReader();
+
+                while (reader.Read()) {
+                    _t = new Temperatur(reader["T_ID"].ToString(), reader["T_S_SensorID"].ToString(), int.Parse(reader["T_SensorValueInOhm"].ToString()), Convert.ToDateTime(reader["T_MeasuredAtDateTime"].ToString()));
+                }
+                reader.Close();
+
+            }
+            catch (SqlException e) {
+                System.Windows.MessageBox.Show(e.Message);
+            }
+            finally {
+                conn.Close();
+                conn.Dispose();
+            }
+            return _t;
         } 
     }
 }
