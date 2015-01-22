@@ -39,7 +39,7 @@ namespace projectx {
             DateTime today = DateTime.Today;
             foreach (Sensor s in sensors) {
 
-                int SensorValue = _controller.GetNewestTemperatureFromSensorID(s.Id).SensorValueInOhm;
+                int SensorValue = _controller.GetNewestTemperatureFromSensorID(s.Id, 1).SensorValueInOhm;
                 var diff = today - s.BatteryLastChanged;
                 double daysdiff = diff.Days;
                 
@@ -48,13 +48,30 @@ namespace projectx {
                     SensorInfo += "[battery] ";
                 }
 
-                if (SensorValue < 800 || SensorValue > 20000)
-                {
+                if (SensorValue < 800 || SensorValue > 20000){
                     SensorInfo += "[Temperatur] ";
                 }
-                
-                listbox1.Items.Add(SensorInfo + _controller.getName(s.CprNr).Name + " - " + daysdiff + " Dage");
-            }
+
+                //List<Location> SpeedLocations = _controller.GetNewestLocationFromSensorID(s.Id, 2);
+                //if (SpeedLocations.Count > 0)
+                //{
+                //    int PositionOne = (int.Parse(SpeedLocations[0].Latitude) * int.Parse(SpeedLocations[0].Latitude)) * (int.Parse(SpeedLocations[0].Longitude) * int.Parse(SpeedLocations[0].Longitude));
+                //    int PositionTwo = (int.Parse(SpeedLocations[1].Latitude) * int.Parse(SpeedLocations[1].Latitude)) * (int.Parse(SpeedLocations[1].Longitude) * int.Parse(SpeedLocations[1].Longitude));
+                //    int Distance = (PositionOne - PositionTwo) / 1000;
+
+                //    DateTime TimeOne = SpeedLocations[1].DateTime;
+                //    DateTime TimeTwo = SpeedLocations[0].DateTime;
+                //    TimeSpan TimeTrav = TimeOne.Subtract(TimeTwo);
+                //    int TimeInHours = TimeTrav.Hours;
+                //    double Speed = Distance / TimeInHours;
+                //    SensorInfo += "[" + Speed.ToString() + " km/t] ";
+                //}
+
+
+              
+
+                listbox1.Items.Add(SensorInfo + _controller.getName(s.CprNr).Name + " - " + daysdiff + "Dage ");
+            }      
         }
 
         private void personWindow_Click(object sender, RoutedEventArgs e) {
@@ -74,9 +91,9 @@ namespace projectx {
                 temperaturInPeriod.IsEnabled = true;
                 sensorInfo.Text = "Navn: " + _controller.getName(sensors[listbox1.SelectedIndex].CprNr).Name + "\n";
                 sensorInfo.Text += "CPR: " + sensors[listbox1.SelectedIndex].CprNr + "\n";
-                sensorInfo.Text += "Latitude: " + _controller.GetNewestLocationFromSensorID(sensors[listbox1.SelectedIndex].Id).Latitude;
-                sensorInfo.Text += " Longitude: " +_controller.GetNewestLocationFromSensorID(sensors[listbox1.SelectedIndex].Id).Longitude + "\n";
-                sensorInfo.Text += "Positions tid: " + _controller.GetNewestLocationFromSensorID(sensors[listbox1.SelectedIndex].Id).DateTime + "\n";
+                sensorInfo.Text += "Latitude: " + _controller.GetNewestLocationFromSensorID(sensors[listbox1.SelectedIndex].Id, 1)[0].Latitude;
+                sensorInfo.Text += " Longitude: " +_controller.GetNewestLocationFromSensorID(sensors[listbox1.SelectedIndex].Id, 1)[0].Longitude + "\n";
+                sensorInfo.Text += "Positions tid: " + _controller.GetNewestLocationFromSensorID(sensors[listbox1.SelectedIndex].Id, 1)[0].DateTime + "\n";
                 sensorInfo.Text += "\nSensor: \n";
                 sensorInfo.Text += sensors[listbox1.SelectedIndex].Id + "\n";
                 sensorInfo.Text += sensors[listbox1.SelectedIndex].Model + "\n";
@@ -100,11 +117,6 @@ namespace projectx {
             LocationInPeriod window = new LocationInPeriod();
             window.Show();
            
-        }
-
-
-
-
-        
+        }        
     }
 }

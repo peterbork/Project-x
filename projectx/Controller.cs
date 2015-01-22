@@ -163,9 +163,9 @@ namespace projectx {
             }
             return locations;
         }
-        public Location GetNewestLocationFromSensorID(string sensorId) {
+        public List<Location> GetNewestLocationFromSensorID(string sensorId, int count) {
             SqlConnection conn = new SqlConnection(DBConnectionString.Conn);
-            Location _l = new Location();
+            List<Location> _l = new List<Location>();
 
             try {
                 conn.Open();
@@ -175,14 +175,19 @@ namespace projectx {
                 cmd.CommandType = CommandType.StoredProcedure;
                 SqlParameter parameter = new SqlParameter();
                 cmd.Parameters.Add(new SqlParameter("@SensorID", sensorId));
-                cmd.Parameters.Add(new SqlParameter("@Count", 1));
+                cmd.Parameters.Add(new SqlParameter("@Count", count));
                 SqlDataReader reader = cmd.ExecuteReader();
-
-                while (reader.Read()) {
-                    _l = new Location(reader["L_S_SensorID"].ToString(), reader["L_Latitude"].ToString(), reader["L_Longitude"].ToString(), Convert.ToDateTime(reader["L_DateTime"].ToString()));
+                
+                
+                if (reader.HasRows){
+                    while (reader.Read()) {
+                        _l.Add(new Location(reader["L_S_SensorID"].ToString(), reader["L_Latitude"].ToString(), reader["L_Longitude"].ToString(), Convert.ToDateTime(reader["L_DateTime"].ToString())));
+                    }
                 }
-                reader.Close();
-
+                else { 
+                    _l = new List<Location>();
+                }
+            reader.Close();
             }
             catch (SqlException e) {
                 System.Windows.MessageBox.Show(e.Message);
@@ -254,7 +259,7 @@ namespace projectx {
             return names;
         }
 
-        public Temperatur GetNewestTemperatureFromSensorID(string sensorId){
+        public Temperatur GetNewestTemperatureFromSensorID(string sensorId, int count){
               SqlConnection conn = new SqlConnection(DBConnectionString.Conn);
             Temperatur _t = new Temperatur();
 
@@ -266,7 +271,7 @@ namespace projectx {
                 cmd.CommandType = CommandType.StoredProcedure;
                 SqlParameter parameter = new SqlParameter();
                 cmd.Parameters.Add(new SqlParameter("@SensorID", sensorId));
-                cmd.Parameters.Add(new SqlParameter("@Count", 1));
+                cmd.Parameters.Add(new SqlParameter("@Count", count));
                 SqlDataReader reader = cmd.ExecuteReader();
 
                 if (reader.HasRows)
@@ -290,5 +295,7 @@ namespace projectx {
             }
             return _t;
         } 
+
+
     }
 }
