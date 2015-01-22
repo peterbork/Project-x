@@ -52,22 +52,27 @@ namespace projectx {
                     SensorInfo += "[Temperatur] ";
                 }
 
-                //List<Location> SpeedLocations = _controller.GetNewestLocationFromSensorID(s.Id, 2);
-                //if (SpeedLocations.Count > 0)
-                //{
-                //    int PositionOne = (int.Parse(SpeedLocations[0].Latitude) * int.Parse(SpeedLocations[0].Latitude)) * (int.Parse(SpeedLocations[0].Longitude) * int.Parse(SpeedLocations[0].Longitude));
-                //    int PositionTwo = (int.Parse(SpeedLocations[1].Latitude) * int.Parse(SpeedLocations[1].Latitude)) * (int.Parse(SpeedLocations[1].Longitude) * int.Parse(SpeedLocations[1].Longitude));
-                //    int Distance = (PositionOne - PositionTwo) / 1000;
+                List<Location> SpeedLocations = _controller.GetNewestLocationFromSensorID(s.Id, 2);
+                if (SpeedLocations.Count > 0) {
+                    int PositionOne = (int.Parse(SpeedLocations[0].Latitude) * int.Parse(SpeedLocations[0].Latitude)) * (int.Parse(SpeedLocations[0].Longitude) * int.Parse(SpeedLocations[0].Longitude));
+                    int PositionTwo = (int.Parse(SpeedLocations[1].Latitude) * int.Parse(SpeedLocations[1].Latitude)) * (int.Parse(SpeedLocations[1].Longitude) * int.Parse(SpeedLocations[1].Longitude));
+                    int Distance = (PositionOne - PositionTwo);
+                    double Speed;
+                    if (Distance > 0) {
+                        int DistanceInKm = Distance / 1000;
+                        DateTime TimeOne = SpeedLocations[0].DateTime;
+                        DateTime TimeTwo = SpeedLocations[1].DateTime;
+                        TimeSpan TimeTrav = TimeOne.Subtract(TimeTwo);
+                        double TimeInHours = TimeTrav.Hours;
+                        Speed = Distance / TimeInHours;
+                    }
+                    else {
+                        Speed = 0;
+                    }
+                    SensorInfo += "[" + Speed.ToString() + " km/t] ";
+                }
 
-                //    DateTime TimeOne = SpeedLocations[1].DateTime;
-                //    DateTime TimeTwo = SpeedLocations[0].DateTime;
-                //    TimeSpan TimeTrav = TimeOne.Subtract(TimeTwo);
-                //    int TimeInHours = TimeTrav.Hours;
-                //    double Speed = Distance / TimeInHours;
-                //    SensorInfo += "[" + Speed.ToString() + " km/t] ";
-                //}
-
-                listbox1.Items.Add(SensorInfo + _controller.getName(s.CprNr).Name + " - " + daysdiff + "Dage ");
+                listbox1.Items.Add(SensorInfo + _controller.getName(s.CprNr).Name + " - " + daysdiff + " Dage");
             }      
         }
 
