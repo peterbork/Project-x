@@ -253,5 +253,8 @@ namespace projectx {
             }
             return names;
         }
+        GetNewestTemperatureFromSensorID(){
+         //go tina
+        } 
     }
 }

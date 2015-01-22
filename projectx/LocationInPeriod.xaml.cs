@@ -22,7 +22,7 @@ namespace projectx {
             _controller = new Controller();
             InitializeComponent();
             selectedPerson.Content = _controller.getName(MainWindow.selectedSensor).Name;
-
+            endDate.Text = DateTime.Now.ToString();
         }
 
 
@@ -32,6 +32,33 @@ namespace projectx {
             foreach (Location l in locations) {
                 AllLocations.Items.Add(l.DateTime + ": " + l.Latitude + " - " + l.Longitude);
             }
+            int distance = int.Parse(maxDistance.Text);
+            int haveLeftCounter = 0;
+            foreach (Location l in locations) {
+                if ((int.Parse(l.Latitude) > distance || int.Parse(l.Latitude) < -distance) || (int.Parse(l.Longitude) > distance || int.Parse(l.Longitude) < -distance)) {
+                    haveLeftCounter++;
+                    back.Content = "Ja";
+                }
+                else {
+                    back.Content = "Nej";
+                }
+                if (haveLeftCounter > 0) {
+                    haveLeft.Content = "Ja";
+                }
+                else {
+                    haveLeft.Content = "Nej";
+                }
+                haveLeftCount.Content = haveLeftCounter.ToString();
+            }
+          
+            
+            
+            //Location newest = locations[locations.Count - 1];
+            //if (int.Parse(newest.Latitude) < distance && int.Parse(newest.Latitude) > -distance && int.Parse(newest.Longitude) < distance && int.Parse(newest.Longitude) > -distance) {
+            //    back.Content = "Ja";
+            //}else{
+            //    back.Content = "Nej";
+            //}
         }
     }
 }

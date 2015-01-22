@@ -3,13 +3,20 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         Title="LocationInPeriod" Height="482.017" Width="385.197">
     <Grid>
-        <TextBox Name="startDate" HorizontalAlignment="Left" Height="23" TextWrapping="Wrap" VerticalAlignment="Top" Width="120" Margin="45,278,0,0"/>
-        <Label Content="Start Tid" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="45,252,0,0"/>
-        <TextBox Name="endDate" HorizontalAlignment="Left" Height="23" TextWrapping="Wrap" VerticalAlignment="Top" Width="120" Margin="212,278,0,0"/>
-        <Button Name="swag" Content="Button" HorizontalAlignment="Left" VerticalAlignment="Top" Width="75" Margin="150,328,0,0" Click="swag_Click"/>
-        <Label Content="Slut tid" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="212,252,0,0"/>
-        <Label Name="selectedPerson" Content="Label" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="45,221,0,0"/>
+        <TextBox Name="startDate" HorizontalAlignment="Left" Height="23" TextWrapping="Wrap" VerticalAlignment="Top" Width="120" Margin="49,372,0,0"/>
+        <Label Content="Start Tid" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="49,346,0,0"/>
+        <TextBox Name="endDate" HorizontalAlignment="Left" Height="23" TextWrapping="Wrap" VerticalAlignment="Top" Width="120" Margin="216,372,0,0"/>
+        <Button Name="swag" Content="Button" HorizontalAlignment="Left" VerticalAlignment="Top" Width="75" Margin="154,423,0,0" Click="swag_Click"/>
+        <Label Content="Slut tid" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="216,347,0,0"/>
+        <Label Name="selectedPerson" Content="Label" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="49,321,0,0"/>
         <ListBox Name="AllLocations" HorizontalAlignment="Left" Height="206" Margin="10,10,0,0" VerticalAlignment="Top" Width="360"/>
+        <Label Content="Kom tilbage:" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="49,264,0,0" Width="84"/>
+        <Label Name="back" Content="" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="138,264,0,0"/>
+        <Label Content="Har forladt området:" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="49,221,0,0"/>
+        <Label Name="haveLeft" Content="" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="191,221,0,0"/>
+        <Label Name="haveLeftCount" Content="" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="191,264,0,0" Width="73"/>
+        <TextBox Name="maxDistance" HorizontalAlignment="Left" Height="23" TextWrapping="Wrap" Text="25" VerticalAlignment="Top" Width="25" Margin="222,319,0,0"/>
+        <Label Content="km" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="247,316,0,0"/>
 
     </Grid>
 </Window>
