@@ -11,6 +11,8 @@ using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
+using System.Data;
+using System.Data.SqlClient;
 
 namespace projectx {
     /// <summary>
@@ -21,10 +23,12 @@ namespace projectx {
         public RegisterSensor() {
             InitializeComponent();
             _controller = new Controller();
+
+            PersonList.ItemsSource = _controller.GetNames();
         }
 
         private void SetSensor_Click(object sender, RoutedEventArgs e) {
-            _controller.RegisterNewSensor(textbox3.Text, textbox4.Text, textbox5.Text, Convert.ToDateTime(textbox6.Text));
+            _controller.RegisterNewSensor(textbox3.Text, PersonList.SelectedValue.ToString(), textbox5.Text, Convert.ToDateTime(textbox6.Text));
         }
     }
 }

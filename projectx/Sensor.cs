@@ -17,5 +17,9 @@ namespace projectx {
             this.Model = model;
             this.BatteryLastChanged = batterylastchanged;
         }
+
+        public Sensor() {
+
+        }
     }
 }
