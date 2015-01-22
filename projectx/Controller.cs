@@ -269,9 +269,15 @@ namespace projectx {
                 cmd.Parameters.Add(new SqlParameter("@Count", 1));
                 SqlDataReader reader = cmd.ExecuteReader();
 
-                while (reader.Read()) {
-                    _t = new Temperatur(reader["T_ID"].ToString(), reader["T_S_SensorID"].ToString(), int.Parse(reader["T_SensorValueInOhm"].ToString()), Convert.ToDateTime(reader["T_MeasuredAtDateTime"].ToString()));
+                if (reader.HasRows)
+                {
+                    while (reader.Read())
+                    {
+                        _t = new Temperatur(reader["T_S_SensorID"].ToString(), int.Parse(reader["T_SensorValueInOhm"].ToString()), Convert.ToDateTime(reader["T_MeasuredAtDateTime"].ToString()));
+                    }
                 }
+                else
+                    _t = new Temperatur();
                 reader.Close();
 
             }
