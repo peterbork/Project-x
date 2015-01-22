@@ -62,6 +62,7 @@ namespace projectx {
                 //    DateTime TimeOne = SpeedLocations[1].DateTime;
                 //    DateTime TimeTwo = SpeedLocations[0].DateTime;
                 //    TimeSpan TimeTrav = TimeOne.Subtract(TimeTwo);
+
                 //    int TimeInHours = TimeTrav.Hours;
                 //    double Speed = Distance / TimeInHours;
                 //    SensorInfo += "[" + Speed.ToString() + " km/t] ";
