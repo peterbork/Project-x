@@ -6,6 +6,5 @@ using System.Threading.Tasks;
 
 namespace projectx {
     static class Helper {
-
     }
 }
