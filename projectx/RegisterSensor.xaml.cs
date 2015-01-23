@@ -23,12 +23,15 @@ namespace projectx {
         public RegisterSensor() {
             InitializeComponent();
             _controller = new Controller();
-
+            DateTime today = DateTime.Now;
+            textbox6.Text = today.ToString();
             PersonList.ItemsSource = _controller.GetNames();
         }
 
         private void SetSensor_Click(object sender, RoutedEventArgs e) {
             _controller.RegisterNewSensor(textbox3.Text, PersonList.SelectedValue.ToString(), textbox5.Text, Convert.ToDateTime(textbox6.Text));
+            this.Close();
+            System.Windows.MessageBox.Show("Sensor Tilføjet!");
         }
     }
 }

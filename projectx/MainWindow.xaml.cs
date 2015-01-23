@@ -27,7 +27,6 @@ namespace projectx {
             InitializeComponent();
             batteryChanged.IsEnabled = false;
             locationInPeriod.IsEnabled = false;
-            temperaturInPeriod.IsEnabled = false;
 
         }
 
@@ -53,24 +52,26 @@ namespace projectx {
                 }
 
                 List<Location> SpeedLocations = _controller.GetNewestLocationFromSensorID(s.Id, 2);
+                double Speed = 0.00;
                 if (SpeedLocations.Count > 0) {
-                    int PositionOne = (int.Parse(SpeedLocations[0].Latitude) * int.Parse(SpeedLocations[0].Latitude)) * (int.Parse(SpeedLocations[0].Longitude) * int.Parse(SpeedLocations[0].Longitude));
-                    int PositionTwo = (int.Parse(SpeedLocations[1].Latitude) * int.Parse(SpeedLocations[1].Latitude)) * (int.Parse(SpeedLocations[1].Longitude) * int.Parse(SpeedLocations[1].Longitude));
-                    int Distance = (PositionOne - PositionTwo);
-                    double Speed;
+                    double PositionOne = Math.Pow(2, int.Parse(SpeedLocations[0].Latitude)) * Math.Pow(2, int.Parse(SpeedLocations[0].Longitude));
+                    double PositionTwo = Math.Pow(2, int.Parse(SpeedLocations[1].Latitude)) * Math.Pow(2, int.Parse(SpeedLocations[1].Longitude));
+                    double Distance = PositionTwo + PositionOne;
                     if (Distance > 0) {
-                        int DistanceInKm = Distance / 1000;
+                        double DistanceInKm = Distance / 1000;
                         DateTime TimeOne = SpeedLocations[0].DateTime;
                         DateTime TimeTwo = SpeedLocations[1].DateTime;
                         TimeSpan TimeTrav = TimeOne.Subtract(TimeTwo);
-                        double TimeInHours = TimeTrav.Hours;
-                        Speed = Distance / TimeInHours;
+                        double TimeInHours = TimeTrav.TotalHours;
+                        Speed = (DistanceInKm / TimeInHours);
+
                     }
                     else {
-                        Speed = 0;
+                        Speed = 0.00;
                     }
-                    SensorInfo += "[" + Speed.ToString() + " km/t] ";
+                    
                 }
+                SensorInfo += "[" + Speed.ToString().Substring(0, 1) + " km/t] ";
 
                 listbox1.Items.Add(SensorInfo + _controller.getName(s.CprNr).Name + " - " + daysdiff + " Dage");
             }      
@@ -90,13 +91,20 @@ namespace projectx {
             try {
                 batteryChanged.IsEnabled = true;
                 locationInPeriod.IsEnabled = true;
-                temperaturInPeriod.IsEnabled = true;
                 sensorInfo.Text = "Navn: " + _controller.getName(sensors[listbox1.SelectedIndex].CprNr).Name + "\n";
                 sensorInfo.Text += "CPR: " + sensors[listbox1.SelectedIndex].CprNr + "\n";
+                sensorInfo.Text += "Temperatur: " + _controller.GetNewestTemperatureFromSensorID(sensors[listbox1.SelectedIndex].Id, 1).SensorValueInOhm + " Ohm\n";
                 sensorInfo.Text += "Latitude: " + _controller.GetNewestLocationFromSensorID(sensors[listbox1.SelectedIndex].Id, 1)[0].Latitude;
                 sensorInfo.Text += " Longitude: " +_controller.GetNewestLocationFromSensorID(sensors[listbox1.SelectedIndex].Id, 1)[0].Longitude + "\n";
                 sensorInfo.Text += "Positions tid: " + _controller.GetNewestLocationFromSensorID(sensors[listbox1.SelectedIndex].Id, 1)[0].DateTime + "\n";
-                sensorInfo.Text += "\nSensor: \n";
+                sensorInfo.Text += "Position: ";
+                if (int.Parse(_controller.GetNewestLocationFromSensorID(sensors[listbox1.SelectedIndex].Id, 1)[0].Latitude) > 25 || int.Parse(_controller.GetNewestLocationFromSensorID(sensors[listbox1.SelectedIndex].Id, 1)[0].Latitude) < -25 || int.Parse(_controller.GetNewestLocationFromSensorID(sensors[listbox1.SelectedIndex].Id, 1)[0].Longitude) > 25 || int.Parse(_controller.GetNewestLocationFromSensorID(sensors[listbox1.SelectedIndex].Id, 1)[0].Longitude) < -25) {
+                    sensorInfo.Text += "Hjemme";
+                }
+                else {
+                    sensorInfo.Text += "Ude";
+                }
+                sensorInfo.Text += "\n\nSensor: \n";
                 sensorInfo.Text += sensors[listbox1.SelectedIndex].Id + "\n";
                 sensorInfo.Text += sensors[listbox1.SelectedIndex].Model + "\n";
                 sensorInfo.Text += sensors[listbox1.SelectedIndex].BatteryLastChanged.Date;

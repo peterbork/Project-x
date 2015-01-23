@@ -25,6 +25,8 @@ namespace projectx {
 
         private void SetPerson_Click(object sender, RoutedEventArgs e) {
             _controller.RegisterNewPerson(textbox1.Text, textbox2.Text);
+            this.Close();
+            System.Windows.MessageBox.Show("Person tilføjet!");
         }
     }
 }

@@ -12,7 +12,7 @@
         <Label Content="Personer" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="88,111,0,0"/>
         <Label Content="ID" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="88,165,0,0"/>
         <Label Content="Batteri tjek" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="88,219,0,0"/>
-        <ComboBox Name= "PersonList" HorizontalAlignment="Left" Margin="88,139,0,0" VerticalAlignment="Top" Width="120" />
+        <ComboBox Name= "PersonList" HorizontalAlignment="Center" Margin="0,139,0,0" VerticalAlignment="Top" Width="120" />
 
     </Grid>
 </Window>

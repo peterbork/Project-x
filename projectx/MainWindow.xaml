@@ -4,13 +4,11 @@
         Title="MainWindow" Height="422.633" Width="691.778">
     <Grid>
         <ListBox Name="listbox1" HorizontalAlignment="Left" Height="303" VerticalAlignment="Top" Width="326" Margin="90,41,0,0" Loaded="loaded" SelectionChanged="listbox1_SelectionChanged"/>
-        <Button Name="personWindow" Content="Tilføj Person" HorizontalAlignment="Left" VerticalAlignment="Top" Width="75" Margin="10,10,0,0" Click="personWindow_Click"/>
-        <Button Name="sensorWindow" Content="Tilføj Sensor" HorizontalAlignment="Left" VerticalAlignment="Top" Width="75" Margin="10,36,0,0" Click="sensorWindow_Click"/>
-        <Label Content="Personer" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="90,10,0,0"/>
-        <TextBox Name="sensorInfo" HorizontalAlignment="Left" Height="198" TextWrapping="Wrap" VerticalAlignment="Top" Width="214" Margin="421,41,0,0" />
-        <Button Name="batteryChanged" Content="Batteri skiftet" HorizontalAlignment="Left" VerticalAlignment="Top" Width="161" Margin="421,268,0,0" Click="batteryChanged_Click"/>
-        <Button Name="locationInPeriod" Content="Position i periode" HorizontalAlignment="Left" VerticalAlignment="Top" Width="161" Margin="421,295,0,0" Click="locationInPeriod_Click"/>
-        <Button Name="temperaturInPeriod" Content="Temperatur i periode" HorizontalAlignment="Left" VerticalAlignment="Top" Width="161" Margin="421,322,0,0"/>
+        <Button Name="personWindow" Content="Tilføj Person" HorizontalAlignment="Left" VerticalAlignment="Top" Width="75" Margin="10,41,0,0" Click="personWindow_Click"/>
+        <Button Name="sensorWindow" Content="Tilføj Sensor" HorizontalAlignment="Left" VerticalAlignment="Top" Width="75" Margin="10,68,0,0" Click="sensorWindow_Click"/>
+        <TextBox Name="sensorInfo" HorizontalAlignment="Left" Height="249" TextWrapping="Wrap" VerticalAlignment="Top" Width="214" Margin="421,41,0,0" />
+        <Button Name="batteryChanged" Content="Batteri skiftet" HorizontalAlignment="Left" VerticalAlignment="Top" Width="214" Margin="421,295,0,0" Click="batteryChanged_Click"/>
+        <Button Name="locationInPeriod" Content="Position i periode" HorizontalAlignment="Left" VerticalAlignment="Top" Width="214" Margin="421,322,0,0" Click="locationInPeriod_Click"/>
 
     </Grid>
 </Window>
